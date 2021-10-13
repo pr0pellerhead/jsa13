@@ -1,1 +1,26 @@
-[{"ime":"Janko","prosek":7.8},{"ime":"Stanko","prosek":9.2},{"ime":"Boro","prosek":7.6},{"ime":"Gorde","prosek":9.8},{"ime":"Ana","prosek":10},{"ime":"Vesna","prosek":8.7}]
+[
+    {
+        "ime": "Janko",
+        "prosek": 7.8
+    },
+    {
+        "ime": "Stanko",
+        "prosek": 9.2
+    },
+    {
+        "ime": "Boro",
+        "prosek": 7.6
+    },
+    {
+        "ime": "Gorde",
+        "prosek": 9.8
+    },
+    {
+        "ime": "Ana",
+        "prosek": 10
+    },
+    {
+        "ime": "Vesna",
+        "prosek": 8.7
+    }
+]
