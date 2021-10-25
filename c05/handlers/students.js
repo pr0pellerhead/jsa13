@@ -1,4 +1,4 @@
-const students = require('../pkg/students');
+const students = require('../pkg/students/mongo');
 
 const create = async (req, res) => {
     try {
