@@ -1,13 +1,15 @@
 const students = require('../pkg/students/mongo');
+const validate = require('../pkg/students/validator');
 
 const create = async (req, res) => {
     try {
-        let condition = !req.body.first_name
-            || !req.body.last_name
-            || !req.body.gpa;
-        if (condition) {
-            return res.status(400).send('Bad request');
-        }
+        await validate(req.body);
+    } catch(err) {
+        console.log(err);
+        return res.status(400).send(err);
+    }
+
+    try {
         let s = await students.create(req.body);
         res.status(201).send(s);
     } catch (err) {
@@ -41,12 +43,12 @@ const getOne = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        let condition = !req.body.first_name
-            || !req.body.last_name
-            || !req.body.gpa;
-        if (condition) {
-            return res.status(400).send('Bad request');
-        }
+        await validate(req.body);
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send(err);
+    }
+    try {
         await students.update(req.params.id, req.body);
         res.status(204).send();
     } catch (err) {
@@ -57,12 +59,12 @@ const update = async (req, res) => {
 
 const partialUpdate = async (req, res) => {
     try {
-        let condition = req.body.first_name
-            || req.body.last_name
-            || req.body.gpa;
-        if (!condition) {
-            return res.status(400).send('Bad request');
-        }
+        await validate(req.body, 'UPDATE');
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send(err);
+    }
+    try {
         await students.partialUpdate(req.params.id, req.body);
         res.status(204).send();
     } catch (err) {
