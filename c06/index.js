@@ -1,10 +1,21 @@
 require('./pkg/db');
 const express = require('express');
+const jwt = require('express-jwt');
 const handlers = require('./handlers/auth')
 
 const api = express();
 
 api.use(express.json());
+api.use(jwt({
+        secret: 'secretpassword',
+        algorithms: ['HS256']
+    }).unless({ // you don't need jwt for these routes
+        path: [
+            '/auth/login',
+            '/auth/create-account',
+        ]}
+    )
+);
 
 api.post('/auth/login', handlers.login);
 api.get('/auth/validate', handlers.validate);
