@@ -35,8 +35,7 @@ const login = async (req, res) => {
 };
 
 const validate = (req, res) => {
-    let output = `Hello ${req.user.full_name} with user ID ${req.user.uid}, and email ${req.user.email}`;
-    res.send(output);
+    res.status(200).send('ok');
 };
 
 // Оваа функција
@@ -70,12 +69,23 @@ const resetPassword = (req, res) => {
     res.send('ok');
 };
 
+const renew = (req, res) => {
+    let token = jwt.sign({
+        uid: req.user.uid,
+        email: req.user.email,
+        full_name: req.user.full_name,
+        exp: parseInt((new Date().getTime() + 24 * 60 * 60 * 1000) / 1000)
+    }, 'secretpassword');
+    res.status(200).send(token);
+};
+
 module.exports = {
     login,
     validate,
     createAccount,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    renew
 };
 
 /*

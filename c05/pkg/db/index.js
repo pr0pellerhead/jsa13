@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-let username = 'dev';
-let password = 'RCJWlbRrSwATIlpZ';
-let host = 'cluster0.c3iyx.mongodb.net';
-let dbname = 'semosdb';
+let username = '';
+let password = '';
+let host = '';
+let dbname = '';
 
 // connection string
 let dsn = `mongodb+srv://${username}:${password}@${host}/${dbname}?retryWrites=true&w=majority`;

@@ -19,11 +19,12 @@ api.use(jwt({
 
 api.post('/auth/login', handlers.login);
 api.get('/auth/validate', handlers.validate);
+api.get('/auth/renew-jwt', handlers.renew);
 api.post('/auth/create-account', handlers.createAccount);
 api.post('/auth/forot-password', handlers.forgotPassword);
 api.post('/auth/reset-password', handlers.resetPassword);
 
-api.listen(10000, err => {
+api.listen(10001, err => {
     if (err) {
         return console.log('Could not start server', err);
     }

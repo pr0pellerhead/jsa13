@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let username = 'dev';
+let username = '';
 let password = '';
 let host = '';
 let dbname = '';
