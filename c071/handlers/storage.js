@@ -44,9 +44,20 @@ const download = async (req, res) => {
     res.download(filePath);
 };
 
+const getFileList = (req, res) => {
+    res.send('ok');
+};
+
+const removeFile = (req, res) => {
+    res.send('ok');
+};
+
+
 module.exports = {
     upload,
-    download
+    download,
+    getFileList,
+    removeFile
 };
 
 

@@ -12,7 +12,9 @@ api.use(jwt({
 api.use(fileUpload());
 
 api.post('/storage', handlers.upload);
+api.get('/storage', handlers.getFileList);
 api.get('/storage/:filename', handlers.download);
+api.delete('/storage/:filename', handlers.removeFile);
 
 api.listen(10002, err => {
     if(err) {
