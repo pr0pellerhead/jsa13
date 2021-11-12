@@ -1,13 +1,17 @@
+const config = require('./pkg/config');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const jwt = require('express-jwt');
 const handlers = require('./handlers/storage');
 
+let cfgSecurity = config.get('security');
+let cfgApp = config.get('app');
+
 const api = express();
 
 api.use(jwt({
-    algorithms: ['HS256'],
-    secret: 'secretpassword'
+    algorithms: cfgSecurity.algorithms,
+    secret: cfgSecurity.secret
 }));
 api.use(fileUpload());
 
@@ -16,9 +20,9 @@ api.get('/storage', handlers.getFileList);
 api.get('/storage/:filename', handlers.download);
 api.delete('/storage/:filename', handlers.removeFile);
 
-api.listen(10002, err => {
+api.listen(cfgApp.port, err => {
     if(err) {
         return console.log(err);
     }
-    console.log('Server successfuly started on port 10002');
+    console.log(`Server successfuly started on port ${cfgApp.port}`);
 });

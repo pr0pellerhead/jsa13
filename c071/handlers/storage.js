@@ -1,21 +1,21 @@
+const config = require('../pkg/config');
 const fs = require('fs');
 const strings = require('../pkg/strings');
 
-const MAX_FILESIZE = 1024 * 1024 * 1; // 1 MB
-const ALLOWED_FILETYPES = ['image/jpg', 'image/jpeg', 'image/pjpg', 'image/png', 'image/gif'];
+const cfgApp = config.get('app');
 
 const upload = async (req, res) => {
 
-    if(req.files.document.size > MAX_FILESIZE) {
+    if (req.files.document.size > cfgApp.max_filesize) {
         return res.status(400).send('File exceeds max file size');
     }
 
-    if(!ALLOWED_FILETYPES.includes(req.files.document.mimetype)) {
+    if (!cfgApp.allowed_filetypes.includes(req.files.document.mimetype)) {
         return res.status(400).send('Filetype not allowed');
     }
 
     let userDir = `user_${req.user.uid}`;
-    let userDirPath = `${__dirname}/../uploads/${userDir}`;
+    let userDirPath = `${__dirname}/../${cfgApp.upload_dir}/${userDir}`;
 
     if(!fs.existsSync(userDirPath)) {
         fs.mkdirSync(userDirPath);
@@ -35,7 +35,7 @@ const upload = async (req, res) => {
 
 const download = async (req, res) => {
     let userDir = `user_${req.user.uid}`;
-    let userDirPath = `${__dirname}/../uploads/${userDir}`;
+    let userDirPath = `${__dirname}/../${cfgApp.upload_dir}/${userDir}`;
     let filePath = `${userDirPath}/${req.params.filename}`;
 
     if(!fs.existsSync(filePath)) {
